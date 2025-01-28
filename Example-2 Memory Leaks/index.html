@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Leak Example</title>
+</head>
+<body>
+  <button id="start">Start Memory Leak</button>
+  <button id="stop">Stop</button>
+  <script>
+    let leakyArray = [];
+    let interval;
+
+    document.getElementById('start').addEventListener('click', () => {
+      interval = setInterval(() => {
+        // Simulate a memory leak by pushing objects into a global array
+        leakyArray.push({ data: new Array(1000000).fill('*') });
+        console.log(`Leaky array size: ${leakyArray.length}`);
+      }, 1000);
+    });
+
+    document.getElementById('stop').addEventListener('click', () => {
+      clearInterval(interval);
+     // Clear the global array to free memory
+     //  leakyArray = []; 
+  
+      console.log('Stopped adding to leakyArray.');
+    });
+
+
+
+
+  </script>
+</body>
+</html>
